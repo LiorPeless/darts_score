@@ -1,3 +1,3 @@
 # Darts score
 
-this program is used to reack score in darts game
+this program is used to track score in darts games
