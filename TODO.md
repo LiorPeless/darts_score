@@ -2,8 +2,8 @@
 
 
 ## Functions the user should have:
-- add user (player)
-- add score to user
+[x] - add user (player)
+[ ] - add score to user
 
 
 ## 07/05/2024

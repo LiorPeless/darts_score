@@ -41,8 +41,52 @@ def on_add_player(event):
         # otherwise we just do noting
         pass
     
+def on_start_game(event):
+    # clear current screen
+    for widget in app.winfo_children():
+        widget.destroy()
+
+#    # add a combo box of players
+#    players = myDB.get_all_users()
+#    players = [player[0] for player in players]
+#
+#    player_combobox = CTkComboBox(app, values=players, font=FONT)
+#    player_combobox.place(relx=0.5, rely=0.3, anchor="center")
+
+    # choose number of players:
+    label = CTkLabel(app, text="Choose number of players:", font=FONT)
+    label.place(relx=0.5, rely=0.3, anchor="center")
+    
+    options = ["2", "3", "4", "5"]
+
+    num_players = CTkComboBox(app, values=options, font=FONT)
+    num_players.place(relx=0.5, rely=0.4, anchor="center")
+
+    players_selection_button = CTkButton(app, text="Next", width=BWIDTH, height=BHEIGHT, fg_color="green", font=FONT)
+    players_selection_button.place(relx=0.5, rely=0.5, anchor="center")
+
+    players_selection_button.bind("<Button-1>", lambda event: on_players_selection(event, num_players.get()))
 
 
+
+def on_players_selection(event, num_players):
+    num_players = int(num_players)
+
+    # clear current screen
+    for widget in app.winfo_children():
+        widget.destroy()
+
+    for i in range(num_players):
+        players = myDB.get_all_users()
+        players = [player[0] for player in players]
+        players = sorted(players)
+
+        label = CTkLabel(app, text=f"Player {i+1}:", font=FONT)
+        label.place(relx=0.4, rely=0.3 + 0.1 * i, anchor="center")
+
+        player_combobox = CTkComboBox(app, values=players, font=FONT)
+        player_combobox.place(relx=0.6, rely=0.3 + 0.1 * i, anchor="center")
+    
 
 if __name__ == "__main__":
 
@@ -62,7 +106,6 @@ if __name__ == "__main__":
 #    image_label.place(relx=0.5, rely=0.2, anchor="center")
 
 
-
     start_game_button = CTkButton(app, text="Start Game", width=BWIDTH, height=BHEIGHT, fg_color="green", font=FONT)
     start_game_button.place(relx=0.5, rely=0.5, anchor="center")
 
@@ -74,7 +117,7 @@ if __name__ == "__main__":
 
 
     #bind buttons
-    #start_game_button.bind("<Button-1>", on_start_game)
+    start_game_button.bind("<Button-1>", on_start_game)
     add_player_button.bind("<Button-1>", on_add_player)
     exit_button.bind("<Button-1>", on_exit)
 

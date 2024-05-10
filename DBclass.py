@@ -89,6 +89,18 @@ class DBclass:
             self.curr_users.execute(sql, (score_to_add, name))
             self.conn_users.commit()
 
+
+    # -----------------------------------------
+    # special Getters and setters 
+    # -----------------------------------------
+
+    def get_all_users(self):
+        # returns a list of all user names
+        sql = "SELECT NAME FROM users"
+        self.curr_users.execute(sql)
+        return self.curr_users.fetchall()
+
+
 if __name__ == '__main__':
     myDB = DBclass()
     myDB.add_user("lior")
